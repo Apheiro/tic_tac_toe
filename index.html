@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/gameRounds.css">
+    <link rel="stylesheet" href="./styles/presentation.css">
+    <script src="./script.js" defer></script>
+    <title>Tic Tac Toe</title>
+</head>
+
+<body>
+    <main class="gamePanel">
+
+        <section class="playGame" style="display: none;">
+            <div class="player1">
+                <div class="points">0</div>
+                <h2>PLAYER1</h2>
+            </div>
+            <div class="game">
+                <div class="gameBoardAndRound">
+                    <div class="gameBoardContainer">
+                        <div id="gameBoard" class="gameBoard">
+                            <div data-index="0" class="gameBoardCell row1 column1 horizontal1"></div>
+                            <div data-index="1" class="gameBoardCell row1 column2"></div>
+                            <div data-index="2" class="gameBoardCell row1 column3 horizontal2"></div>
+                            <div data-index="3" class="gameBoardCell row2 column1"></div>
+                            <div data-index="4" class="gameBoardCell row2 column2 horizontal1 horizontal2"></div>
+                            <div data-index="5" class="gameBoardCell row2 column3"></div>
+                            <div data-index="6" class="gameBoardCell row3 column1 horizontal2"></div>
+                            <div data-index="7" class="gameBoardCell row3 column2"></div>
+                            <div data-index="8" class="gameBoardCell row3 column3 horizontal1"></div>
+                        </div>
+                    </div>
+                    <h2>ROUND 2</h2>
+                </div>
+                <div class="settings">
+                    <button class="btn">
+                        <div class="configBtn"></div>
+                    </button>
+                    <button class="btn">
+                        <div class="refreshBtn"></div>
+                    </button>
+                    <button class="btn">
+                        <div class="githubBtn"></div>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="player2">
+                <h2>PLAYER2</h2>
+                <div class="points">0</div>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>
