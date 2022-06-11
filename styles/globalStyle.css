@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Press Start 2P', cursive;
+    color: #BBBE64;
+    font-weight: 100;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #241e2b;
+}
+
+.gamePanel {
+    max-width: 1724px;
+    width: 90%;
+    max-height: 926px;
+    height: 90%;
+    background: #332A3C;
+    border-radius: 34px;
+    padding: 20px;
+}
