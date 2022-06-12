@@ -17,6 +17,7 @@ body {
 }
 
 .gamePanel {
+    position: relative;
     max-width: 1724px;
     width: 90%;
     max-height: 926px;

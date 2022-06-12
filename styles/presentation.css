@@ -1,5 +1,4 @@
 .presentation {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,6 +22,26 @@
 .instruction{
     font-size: 11px;
     position:absolute;
-    bottom: 0px;
+    bottom: 10px;
     text-align: center;
 }
+
+.btnPresentation{
+    filter: hue-rotate(201deg) saturate(1.5) brightness(0.2);
+    position: absolute;
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+    background-color: transparent;
+    border: none;
+    margin:10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: center;
+}
+
+.btnPresentation:hover {
+    transform: scale(1.2);
+}
+
