@@ -5,23 +5,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 40px;
 }
 
 .settingsTitle{
     font-size: 47px;
-    margin: 20px 0px;
 }
 
 .settingsContent{
-    width: 764px;
-    height: 472px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 50px;
+    max-width: 764px;
+    width: 100%;
+    height: fit-content;
     background: #2B2433;
     border-radius: 21px;
-    display: flex;
-    justify-content: space-evenly;
     align-items: center;
-    flex-direction: column;
-    padding: 50px;
 }
 
 .option{
@@ -31,11 +32,13 @@
 }
 .roundNum{
     display: flex;
+    gap: 10px;
 }
 
 .roundNum button{
     background-color: transparent;
     border: none;
+    cursor: pointer;
 }
 
 input[type="radio"]{
@@ -49,13 +52,33 @@ input[type="text"]{
     font-size: 16px;
     width: 250px;
 }
+input[type="text"]::placeholder{
+    color: #bbbe64;
+    opacity: 0.5;
+}
+
+label{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+p{
+    user-select: none;
+}
+
+input[type="radio"]:checked+label{
+   opacity: 1;
+}
+
+:focus{
+    outline: none;
+}
 
 .startBtn {
     background-color: transparent;
     border: none;
     font-size: 20px;
     cursor: pointer;
-    margin: 20px 0px;
 }
 
 .btn.set{

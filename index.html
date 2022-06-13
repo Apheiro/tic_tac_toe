@@ -18,7 +18,7 @@
 
 <body>
     <main class="gamePanel">
-        <section class="presentation"  style="display: none;">
+        <section class="presentation" id="presentation">
             <h1 class="title">TIC-TAC-TOE</h1>
             <h2 class="subTitle">THE GAME</h2>
             <a href="https://github.com/Apheiro" class="btnPresentation">
@@ -27,62 +27,73 @@
             <p class="instruction">(Click to continue)</p>
         </section>
         
-        <section class="settings"  style="display: none;">
+        <section class="settings hidden" id="settings">
             <h2 class="settingsTitle">Customize your game</h2>
             <div class="settingsContent">
-
                 <div class="option">
                     <p>Select your mode</p>
-                    <p><label>IA</label> / <label>Two players</label></p>
-                    <input type="radio" name="" id="">
-                    <input type="radio" name="" id="">
+                    <p>
+                        <input type="radio" name="gameMode" id="IA">
+                        <label for="IA">IA</label>
+                         / 
+                        <input type="radio" name="gameMode" id="twoPlayers" checked>
+                        <label for="twoPlayers">Two players</label>
+                    </p>
+                    
+                    
                 </div>
-
                 <div class="option">
                     <p>Start first</p>
-                    <p><label>Player1</label> / <label>Player2</label></p>
-                    <input type="radio" name="" id="">
-                    <input type="radio" name="" id="">
+                    <p>
+                        <input type="radio" name="players" id="player1" checked>
+                        <label for="player1">Player1</label>
+                         / 
+                        <input type="radio" name="players" id="player2">
+                        <label for="player2">Player2</label>
+                    </p>
+                    
+                    
                 </div>
-
                 <div class="option">
-                    <p>Max gameRounds</p>
+                    <p>Max game rounds</p>
                     <div class="roundNum">
-                        <button><</button>
-                        <p>00</p>
-                        <button>></button>
+                        <button class="decreaseRounds" id="decreaseRounds"><</button>
+                        <p id="roundsNumber">01</p>
+                        <button class="increaseRounds" id="increaseRounds">></button>
                     </div>
                 </div>
-
                 <h3>Player1</h3>
                 <div class="option">
                     <p>Name</p>
-                    <input type="text" name="" id="" placeholder="HUMAN">
+                    <input type="text" name="" id="player1NameInput" placeholder="Player-1">
                 </div>
-
                 <div class="option">
                     <p>Symbol</p>
-                    <p><label>o</label> / <label>x</label></p>
-                    <input type="radio" name="" id="">
-                    <input type="radio" name="" id="">
+                    <p>
+                        <input type="radio" name="symbol" id="symbolO">
+                        <label for="symbolO">O</label>
+                         / 
+                        <input type="radio" name="symbol" id="symbolX" checked>
+                        <label for="symbolX">X</label></p>
+                    
+                    
                 </div>
-
                 <h3>Player2</h3>
                 <div class="option">
                     <p>Name</p>
-                    <input type="text" name="" id="" placeholder="HUMAN">
+                    <input type="text" name="" id="player2NameInput" placeholder="Player-2">
                 </div>
             </div>
-            <button class="startBtn">(Start)</button>
+            <button class="startBtn" id="startBtn">(Start)</button>
             <a href="https://github.com/Apheiro" class="btn set">
                 <div class="githubBtn"></div>
             </a>
         </section>
 
-        <section class="playGame">
+        <section class="playGame hidden" id="playGame"">
             <div class="player1">
-                <div class="points">0</div>
-                <h2>PLAYER1</h2>
+                <div class="points" id="player1Score">0</div>
+                <h2 id="player1Name"></h2>
             </div>
             <div class="game">
                 <div class="gameBoardAndRound">
@@ -99,7 +110,7 @@
                             <div data-index="8" class="gameBoardCell"></div>
                         </div>
                     </div>
-                    <h2>ROUND 2</h2>
+                    <h2 id="round">ROUND 1</h2>
                 </div>
                 <div class="optionBtns">
                     <button class="btn">
@@ -113,10 +124,9 @@
                     </a>
                 </div>
             </div>
-            
             <div class="player2">
-                <h2>PLAYER2</h2>
-                <div class="points">0</div>
+                <h2 id="player2Name"></h2>
+                <div class="points" id="player2Score">0</div>
             </div>
         </section>
 
