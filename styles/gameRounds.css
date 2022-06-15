@@ -1,4 +1,4 @@
-.playGame{
+.playGame {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-.points{
+.points {
     width: 105px;
     height: 105px;
     background: #2B2433;
@@ -18,13 +18,14 @@
     font-size: 55px;
 }
 
-.player1{
+.player1 {
     display: flex;
     justify-content: space-between;
     width: 100%;
     font-size: 25px;
     align-items: flex-start;
 }
+
 .player2 {
     display: flex;
     justify-content: space-between;
@@ -33,46 +34,49 @@
     align-items: flex-end;
 }
 
-.game{
+.game {
     display: flex;
     margin-right: -64px;
     gap: 20px;
 }
 
-.game h2{
+.game h2 {
     font-size: 24px;
 }
 
-.gameBoardAndRound{
+.gameBoardAndRound {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
 }
-.optionBtns{
+
+.optionBtns {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.configBtn{
+.configBtn {
     background-image: url('../icons/cog.svg');
     width: 100%;
     height: 100%;
 }
+
 .refreshBtn {
     background-image: url('../icons/refresh.svg');
     width: 100%;
     height: 100%;
 }
+
 .githubBtn {
     background-image: url('../icons/icons8-github.svg');
-    background-size:contain;
+    background-size: contain;
     width: 90%;
     height: 90%;
 }
 
-.btn{
+.btn {
     width: 44px;
     height: 44px;
     background-color: transparent;
@@ -82,11 +86,22 @@
     display: flex;
     justify-content: center;
 }
+
 .btn:hover {
     transform: scale(1.2);
 }
 
-.gameBoardContainer{
+.playersName {
+    opacity: 0.5;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.playersNameActive {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.gameBoardContainer {
     aspect-ratio: 1/1;
     width: 547px;
     background: #2B2433;
@@ -97,7 +112,7 @@
     align-items: center;
 }
 
-.gameBoard{
+.gameBoard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -106,16 +121,40 @@
     margin: -9px;
 }
 
-.gameBoardCell{
+.gameBoardCell {
+    width: 170px;
+    height: 170px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 10vmin ;
-    border: solid 3px #332A3C;
-    color: #332A3C;
-    box-shadow: inset rgba(0, 0, 0, 0.185) 0px 5px 10px;
+    font-size: 100px;
+    color: #BBBE64;
     text-shadow: rgba(0, 0, 0, 0.26) 0px 5px 10px;
     letter-spacing: -1vmin;
     padding-top: 1vmin;
     user-select: none;
+}
+
+.gameBoardCellLines {
+    border: solid 3px #332A3C;
+    box-shadow: inset rgba(0, 0, 0, 0.185) 0px 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameBoardCellAnimation {
+    animation: appear .5s ease-in-out;
+}
+
+@keyframes appear {
+    0% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }

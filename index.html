@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="./styles/presentation.css">
     <link rel="stylesheet" href="./styles/globalStyle.css">
     <link rel="stylesheet" href="./styles/settings.css">
+    <link rel="stylesheet" href="./styles/gameOver.css">
     <script src="./script.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
 
 <body>
     <main class="gamePanel">
-        <section class="presentation" id="presentation">
+        <section class="presentation animationFadeIn" id="presentation">
             <h1 class="title">TIC-TAC-TOE</h1>
             <h2 class="subTitle">THE GAME</h2>
             <a href="https://github.com/Apheiro" class="btnPresentation">
@@ -27,14 +28,14 @@
             <p class="instruction">(Click to continue)</p>
         </section>
         
-        <section class="settings hidden" id="settings">
+        <section class="settings animationFadeIn hidden" id="settings">
             <h2 class="settingsTitle">Customize your game</h2>
             <div class="settingsContent">
                 <div class="option">
                     <p>Select your mode</p>
                     <p>
                         <input type="radio" name="gameMode" id="IA">
-                        <label for="IA">IA</label>
+                        <label for="IA" style="pointer-events:none;">IA</label>
                          / 
                         <input type="radio" name="gameMode" id="twoPlayers" checked>
                         <label for="twoPlayers">Two players</label>
@@ -85,38 +86,56 @@
                 </div>
             </div>
             <button class="startBtn" id="startBtn">(Start)</button>
-            <a href="https://github.com/Apheiro" class="btn set">
+            <a href="https://github.com/Apheiro" class="btnGithub">
                 <div class="githubBtn"></div>
             </a>
         </section>
 
-        <section class="playGame hidden" id="playGame"">
+        <section class="playGame animationFadeIn hidden" id="playGame"">
             <div class="player1">
                 <div class="points" id="player1Score">0</div>
-                <h2 id="player1Name"></h2>
+                <h2 id="player1Name" class="playersName"></h2>
             </div>
             <div class="game">
                 <div class="gameBoardAndRound">
                     <div class="gameBoardContainer">
                         <div id="gameBoard" class="gameBoard">
-                            <div data-index="0" class="gameBoardCell"></div>
-                            <div data-index="1" class="gameBoardCell"></div>
-                            <div data-index="2" class="gameBoardCell"></div>
-                            <div data-index="3" class="gameBoardCell"></div>
-                            <div data-index="4" class="gameBoardCell"></div>
-                            <div data-index="5" class="gameBoardCell"></div>
-                            <div data-index="6" class="gameBoardCell"></div>
-                            <div data-index="7" class="gameBoardCell"></div>
-                            <div data-index="8" class="gameBoardCell"></div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="0" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="1" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="2" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="3" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="4" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="5" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="6" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="7" class="gameBoardCell"></div>
+                            </div>
+                            <div class="gameBoardCellLines">
+                                <div data-index="8" class="gameBoardCell"></div>
+                            </div>
                         </div>
                     </div>
                     <h2 id="round">ROUND 1</h2>
                 </div>
                 <div class="optionBtns">
-                    <button class="btn">
+                    <button class="btn" id="btnConfig">
                         <div class="configBtn"></div>
                     </button>
-                    <button class="btn">
+                    <button class="btn" id="btnRefresh">
                         <div class="refreshBtn"></div>
                     </button>
                     <a href="https://github.com/Apheiro" class="btn">
@@ -125,11 +144,19 @@
                 </div>
             </div>
             <div class="player2">
-                <h2 id="player2Name"></h2>
+                <h2 id="player2Name" class="playersName"></h2>
                 <div class="points" id="player2Score">0</div>
             </div>
         </section>
 
+        <section class="gameOver animationFadeIn hidden" id="gameOver">
+            <h2 class="gameOverTitle" id="gameOverResult">Game Over</h2>
+            <div>
+                <button class="btn" id="playAgain">(Play again)</button>
+                <button class="btn" id="backToMenuBtn">(Back to menu)</button>
+            </div>
+            
+        </section>
     </main>
 </body>
 
