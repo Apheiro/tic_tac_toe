@@ -205,8 +205,12 @@ class game{
     resetGame() {
         if (player1.turn === true) { 
             gameSession.turnIndex = 1;
+            player1Name.classList.add('playersNameActive');
+            player2Name.classList.remove('playersNameActive');
         } else if (player2.turn === true) {
             gameSession.turnIndex = 0;
+            player2Name.classList.add('playersNameActive');
+            player1Name.classList.remove('playersNameActive');
         }
         player1.score = 0;
         player2.score = 0;
@@ -219,7 +223,6 @@ class game{
     }
 
 }
-
 
 const player1 = new player('X', 'Player-1', 0, true);
 const player2 = new player('O', 'Player-2', 0, false);
@@ -288,9 +291,6 @@ btnConfig.onclick = () => {
         settings.classList.toggle('hidden')
     }, 490);
 }
-btnRefresh.onclick = () => {
-    
-    gameSession.resetGame();
-}
+btnRefresh.onclick = gameSession.resetGame
 
 boardCell.forEach(boardCell => boardCell.onclick =  gameSession.fillBoardData);
