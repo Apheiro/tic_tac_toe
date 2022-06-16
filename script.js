@@ -33,14 +33,19 @@ class game{
         this.player2 = player2;
         this.maxRounds = 1;
         this.round = 1;
-        this.boardData = ['', '', '', '', '', '', '', '', ''];
+        this.boardData = [['', '', ''],['', '', ''],['', '', '']];
         this.turnIndex = 0;
     }
 
     fillCellsOnBoard(){
         boardCell.forEach(boardCell => {
-            boardCell.innerText = `${gameSession.boardData[boardCell.attributes[0].value]}`;
+            boardCell.innerText = `${gameSession.boardData[boardCell.attributes[0].value][boardCell.attributes[1].value]}`;
         });
+    }
+
+    toggleClassActive() {
+        player1Name.classList.toggle('playersNameActive');
+        player2Name.classList.toggle('playersNameActive');
     }
 
     fillBoardData() { 
@@ -48,69 +53,57 @@ class game{
             gameSession.turnIndex++;
             this.classList.add('gameBoardCellAnimation');
             if (gameSession.turnIndex % 2 === 0) {
-                gameSession.boardData[this.attributes[0].value] = player1.symbol;
-                player1Name.classList.toggle('playersNameActive');
-                player2Name.classList.toggle('playersNameActive');
+                gameSession.boardData[this.attributes[0].value][this.attributes[1].value] = player1.symbol;
+                gameSession.toggleClassActive()
             } else {
-                gameSession.boardData[this.attributes[0].value] = player2.symbol;
-                player1Name.classList.toggle('playersNameActive');
-                player2Name.classList.toggle('playersNameActive');
+                gameSession.boardData[this.attributes[0].value][this.attributes[1].value] = player2.symbol;
+                gameSession.toggleClassActive()
             }
         }
         gameSession.fillCellsOnBoard();
-        gameSession.gameResult();
+        gameSession.checkWinner();
     }
 
-    gameResult() {
-        if (gameSession.boardData[0] === 'X' && gameSession.boardData[1] === gameSession.boardData[0] && gameSession.boardData[2] === gameSession.boardData[0] ||
-            gameSession.boardData[3] === 'X' && gameSession.boardData[4] === gameSession.boardData[3] && gameSession.boardData[5] === gameSession.boardData[3] ||
-            gameSession.boardData[6] === 'X' && gameSession.boardData[7] === gameSession.boardData[6] && gameSession.boardData[8] === gameSession.boardData[6] ||
-            gameSession.boardData[0] === 'X' && gameSession.boardData[3] === gameSession.boardData[0] && gameSession.boardData[6] === gameSession.boardData[0] ||
-            gameSession.boardData[1] === 'X' && gameSession.boardData[4] === gameSession.boardData[1] && gameSession.boardData[7] === gameSession.boardData[1] ||
-            gameSession.boardData[2] === 'X' && gameSession.boardData[5] === gameSession.boardData[2] && gameSession.boardData[8] === gameSession.boardData[2] ||
-            gameSession.boardData[0] === 'X' && gameSession.boardData[4] === gameSession.boardData[0] && gameSession.boardData[8] === gameSession.boardData[0] ||
-            gameSession.boardData[2] === 'X' && gameSession.boardData[4] === gameSession.boardData[2] && gameSession.boardData[6] === gameSession.boardData[2]) {
-            if (player1.symbol === 'X') {
-                player1.score++;
-                round.textContent = `${player1.name} won!`;
-                player1Score.innerText = player1.score;
-            } else {
-                player2.score++;
-                round.textContent = `${player2.name} won!`;
-                player2Score.innerText = player2.score;
+    player1Win() {
+        gameSession.round++;
+        player1.score++;
+        round.textContent = `${player1.name} won!`;
+        player1Score.innerText = player1.score;
+        boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
+        setTimeout(() => { gameSession.resetRound(); }, 1000);
+        setTimeout(() => {gameSession.gameOver();}, 1000);
+    }
+
+    player2Win() { 
+        gameSession.round++;
+        player2.score++;
+        round.textContent = `${player2.name} won!`;
+        player2Score.innerText = player2.score;
+        boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
+        setTimeout(() => { gameSession.resetRound(); }, 1000);
+        setTimeout(() => {gameSession.gameOver();}, 1000);
+    }
+
+    checkWinner() {
+        for (let i = 0; i < 3; i++) { 
+            if (gameSession.boardData[i][0] === gameSession.boardData[i][1] && gameSession.boardData[i][1] === gameSession.boardData[i][2]) { 
+                if (gameSession.boardData[i][0] === player1.symbol) { gameSession.player1Win() }
+                else if (gameSession.boardData[i][0] === player2.symbol) { gameSession.player2Win() };
             }
-            gameSession.round++;
-            boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
-            setTimeout(() => { gameSession.resetRound(); }, 1000);
-            setTimeout(() => {gameSession.gameOver();}, 1000);
-        } else if (gameSession.boardData[0] === 'O' && gameSession.boardData[1] === gameSession.boardData[0] && gameSession.boardData[2] === gameSession.boardData[0] ||
-            gameSession.boardData[3] === 'O' && gameSession.boardData[4] === gameSession.boardData[3] && gameSession.boardData[5] === gameSession.boardData[3] ||
-            gameSession.boardData[6] === 'O' && gameSession.boardData[7] === gameSession.boardData[6] && gameSession.boardData[8] === gameSession.boardData[6] ||
-            gameSession.boardData[0] === 'O' && gameSession.boardData[3] === gameSession.boardData[0] && gameSession.boardData[6] === gameSession.boardData[0] ||
-            gameSession.boardData[1] === 'O' && gameSession.boardData[4] === gameSession.boardData[1] && gameSession.boardData[7] === gameSession.boardData[1] ||
-            gameSession.boardData[2] === 'O' && gameSession.boardData[5] === gameSession.boardData[2] && gameSession.boardData[8] === gameSession.boardData[2] ||
-            gameSession.boardData[0] === 'O' && gameSession.boardData[4] === gameSession.boardData[0] && gameSession.boardData[8] === gameSession.boardData[0] ||
-            gameSession.boardData[2] === 'O' && gameSession.boardData[4] === gameSession.boardData[2] && gameSession.boardData[6] === gameSession.boardData[2]) {
-            if (player1.symbol === 'O') {
-                player1.score++;
-                round.textContent = `${player1.name} won!`;
-                player1Score.innerText = player1.score;
-            } else {
-                player2.score++;
-                round.textContent = `${player2.name} won!`;
-                player2Score.innerText = player2.score;
+        }
+        
+        for (let i = 0; i < 3; i++) {
+            if (gameSession.boardData[0][i] === gameSession.boardData[1][i] && gameSession.boardData[1][i] === gameSession.boardData[2][i]) {
+                if (gameSession.boardData[0][i] === player1.symbol) { gameSession.player1Win() }
+                else if (gameSession.boardData[0][i] === player2.symbol) { gameSession.player2Win() };
             }
-            gameSession.round++;
-            boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
-            setTimeout(() => { gameSession.resetRound(); }, 1000);
-            setTimeout(() => {gameSession.gameOver();}, 1000);
-        } else if (gameSession.boardData.includes('') === false) {
-            round.textContent = `It's a draw!`;
-            gameSession.round++;
-            boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
-            setTimeout(() => { gameSession.resetRound(); }, 1000);
-            setTimeout(() => {gameSession.gameOver();}, 1000);
-        }  
+        }
+
+        if (gameSession.boardData[0][0] === gameSession.boardData[1][1] && gameSession.boardData[1][1] === gameSession.boardData[2][2] ||
+            gameSession.boardData[0][2] === gameSession.boardData[1][1] && gameSession.boardData[1][1] === gameSession.boardData[2][0]) {
+            if (gameSession.boardData[1][1] === player1.symbol) { gameSession.player1Win() }
+            else if (gameSession.boardData[1][1] === player2.symbol) { gameSession.player2Win() };
+        }
     }
 
     gameOver() {
@@ -145,7 +138,6 @@ class game{
             player1.turn = true;
             player2.turn = false;
             gameSession.turnIndex = 1;
-            player1Name.classList.toggle('playersNameActive');
             player1Name.classList.add('playersNameActive');
             player2Name.classList.remove('playersNameActive');
         } else {
@@ -184,17 +176,16 @@ class game{
     }
 
     resetRound() { 
-        gameSession.boardData = ['', '', '', '', '', '', '', '', ''];
+        gameSession.boardData = [['', '', ''], ['', '', ''], ['', '', '']];
+        console.log('hola')
         gameSession.fillCellsOnBoard();
         round.innerText = `ROUND ${gameSession.round}`;
         if (player1.turn === true) { 
             gameSession.turnIndex = 1;
-            player1Name.classList.toggle('playersNameActive');
-            player2Name.classList.toggle('playersNameActive');
+            gameSession.toggleClassActive()
         } else {
             gameSession.turnIndex = 0;
-            player1Name.classList.toggle('playersNameActive');
-            player2Name.classList.toggle('playersNameActive');
+            gameSession.toggleClassActive()
         }
         boardCell.forEach(boardCell => {
             boardCell.classList.remove('gameBoardCellAnimation');
@@ -217,7 +208,7 @@ class game{
         player1Score.innerText = player1.score;
         player2Score.innerText = player2.score;
         gameSession.round = 1;
-        gameSession.boardData = ['', '', '', '', '', '', '', '', ''];
+        gameSession.boardData = [['', '', ''],['', '', ''],['', '', '']];
         gameSession.fillCellsOnBoard();
         round.innerText = `ROUND ${gameSession.round}`;
     }
