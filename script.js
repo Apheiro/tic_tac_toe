@@ -82,7 +82,7 @@ class game{
             boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
             setTimeout(() => { gameSession.resetRound(); }, 1000);
             setTimeout(() => {gameSession.gameOver();}, 1000);
-        } else if (gameSession.boardData.every(row => row.every(cell => !!cell)) && gameSession.winner === null) {
+        } else if (gameSession.winner === 'tie' ) {
             gameSession.round++;
             round.textContent = `Tie game!`;
             boardCell.forEach(boardCell => { boardCell.style = 'pointer-events: none;' });
@@ -98,6 +98,8 @@ class game{
                 gameSession.winner = gameSession.boardData[i][0];
             } else if (gameSession.boardData[0][i] === gameSession.boardData[1][i] && gameSession.boardData[1][i] === gameSession.boardData[2][i]) {
                 gameSession.winner = gameSession.boardData[0][i];
+            } else if (gameSession.boardData.every(row => row.every(cell => !!cell))){
+                gameSession.winner = 'tie';
             }
             if (gameSession.winner) {
                 gameSession.playerWinner()
@@ -294,6 +296,7 @@ btnConfig.onclick = () => {
         settings.classList.toggle('hidden')
     }, 490);
 }
+
 btnRefresh.onclick = gameSession.resetGame
 
 boardCell.forEach(boardCell => boardCell.onclick =  gameSession.fillBoardData);
