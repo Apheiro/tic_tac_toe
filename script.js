@@ -35,6 +35,7 @@ class game{
         this.round = 1;
         this.boardData = [['', '', ''],['', '', ''],['', '', '']];
         this.turnIndex = 0;
+        this.winner = null;
     }
 
     fillCellsOnBoard(){
@@ -64,46 +65,52 @@ class game{
         gameSession.checkWinner();
     }
 
-    player1Win() {
-        gameSession.round++;
-        player1.score++;
-        round.textContent = `${player1.name} won!`;
-        player1Score.innerText = player1.score;
-        boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
-        setTimeout(() => { gameSession.resetRound(); }, 1000);
-        setTimeout(() => {gameSession.gameOver();}, 1000);
-    }
-
-    player2Win() { 
-        gameSession.round++;
-        player2.score++;
-        round.textContent = `${player2.name} won!`;
-        player2Score.innerText = player2.score;
-        boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
-        setTimeout(() => { gameSession.resetRound(); }, 1000);
-        setTimeout(() => {gameSession.gameOver();}, 1000);
+    playerWinner() {
+        if (gameSession.winner === player1.symbol) {
+            gameSession.round++;
+            player1.score++;
+            round.textContent = `${player1.name} won!`;
+            player1Score.innerText = player1.score;
+            boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
+            setTimeout(() => { gameSession.resetRound(); }, 1000);
+            setTimeout(() => { gameSession.gameOver(); }, 1000);
+        } else if (gameSession.winner === player2.symbol) {
+            gameSession.round++;
+            player2.score++;
+            round.textContent = `${player2.name} won!`;
+            player2Score.innerText = player2.score;
+            boardCell.forEach(boardCell => {boardCell.style = 'pointer-events: none;'});
+            setTimeout(() => { gameSession.resetRound(); }, 1000);
+            setTimeout(() => {gameSession.gameOver();}, 1000);
+        } else if (gameSession.boardData.every(row => row.every(cell => !!cell)) && gameSession.winner === null) {
+            gameSession.round++;
+            round.textContent = `Tie game!`;
+            boardCell.forEach(boardCell => { boardCell.style = 'pointer-events: none;' });
+            setTimeout(() => { gameSession.resetRound(); }, 1000);
+            setTimeout(() => { gameSession.gameOver(); }, 1000);
+        }
+        gameSession.winner = null;
     }
 
     checkWinner() {
         for (let i = 0; i < 3; i++) { 
             if (gameSession.boardData[i][0] === gameSession.boardData[i][1] && gameSession.boardData[i][1] === gameSession.boardData[i][2]) { 
-                if (gameSession.boardData[i][0] === player1.symbol) { gameSession.player1Win() }
-                else if (gameSession.boardData[i][0] === player2.symbol) { gameSession.player2Win() };
+                gameSession.winner = gameSession.boardData[i][0];
+            } else if (gameSession.boardData[0][i] === gameSession.boardData[1][i] && gameSession.boardData[1][i] === gameSession.boardData[2][i]) {
+                gameSession.winner = gameSession.boardData[0][i];
             }
-        }
-        
-        for (let i = 0; i < 3; i++) {
-            if (gameSession.boardData[0][i] === gameSession.boardData[1][i] && gameSession.boardData[1][i] === gameSession.boardData[2][i]) {
-                if (gameSession.boardData[0][i] === player1.symbol) { gameSession.player1Win() }
-                else if (gameSession.boardData[0][i] === player2.symbol) { gameSession.player2Win() };
+            if (gameSession.winner) {
+                gameSession.playerWinner()
+                break;
             }
         }
 
         if (gameSession.boardData[0][0] === gameSession.boardData[1][1] && gameSession.boardData[1][1] === gameSession.boardData[2][2] ||
             gameSession.boardData[0][2] === gameSession.boardData[1][1] && gameSession.boardData[1][1] === gameSession.boardData[2][0]) {
-            if (gameSession.boardData[1][1] === player1.symbol) { gameSession.player1Win() }
-            else if (gameSession.boardData[1][1] === player2.symbol) { gameSession.player2Win() };
+            gameSession.winner = gameSession.boardData[1][1];
+            if (gameSession.winner == player1.symbol || gameSession.winner == player2.symbol) { gameSession.playerWinner() }
         }
+        
     }
 
     gameOver() {
@@ -177,7 +184,6 @@ class game{
 
     resetRound() { 
         gameSession.boardData = [['', '', ''], ['', '', ''], ['', '', '']];
-        console.log('hola')
         gameSession.fillCellsOnBoard();
         round.innerText = `ROUND ${gameSession.round}`;
         if (player1.turn === true) { 
@@ -212,7 +218,6 @@ class game{
         gameSession.fillCellsOnBoard();
         round.innerText = `ROUND ${gameSession.round}`;
     }
-
 }
 
 const player1 = new player('X', 'Player-1', 0, true);
@@ -221,6 +226,7 @@ const gameSession = new game(player1, player2);
 
 presentation.onclick = () => {
     presentation.classList.toggle('animationFadeOut');
+    presentation.style = 'pointer-events: none;';
     setTimeout(() => {
         presentation.classList.toggle('animationFadeOut');
         presentation.classList.toggle('hidden');
@@ -231,7 +237,9 @@ presentation.onclick = () => {
 startBtn.onclick = () => {
     gameSession.startGame();
     settings.classList.toggle('animationFadeOut');
+    startBtn.style = 'pointer-events: none;';
     setTimeout(() => {
+        startBtn.style = 'pointer-events: initial;';
         settings.classList.toggle('animationFadeOut');
         settings.classList.toggle('hidden');
         playGame.classList.toggle('hidden');
@@ -239,8 +247,10 @@ startBtn.onclick = () => {
 }
 playAgain.onclick = () => {
     gameOver.classList.toggle('animationFadeOut');
+    playAgain.style = 'pointer-events: none;';
     setTimeout(() => {
         gameSession.resetGame();
+        playAgain.style = 'pointer-events: initial;';
         gameOver.classList.toggle('animationFadeOut');
         playGame.classList.toggle('hidden')
         gameOver.classList.toggle('hidden')
@@ -248,7 +258,9 @@ playAgain.onclick = () => {
 }
 backToMenuBtn.onclick = () => {
     gameOver.classList.toggle('animationFadeOut');
+    backToMenuBtn.style = 'pointer-events: none;';
     setTimeout(() => {
+        backToMenuBtn.style = 'pointer-events: initial;';
         gameSession.resetGame();
         gameOver.classList.toggle('animationFadeOut');
         gameOver.classList.toggle('hidden')
